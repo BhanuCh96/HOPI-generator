@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOPI Generator</title>
+</head>
+<body>
+    <h1>History of Present Illness (HOPI) Generator</h1>
+
+    <form id="hopiForm">
+        <h2>Patient Details</h2>
+        <label>Patient Name:</label>
+        <input type="text" id="patientName" placeholder="Enter patient name"><br><br>
+
+        <label>Age:</label>
+        <input type="number" id="age" placeholder="Enter age"><br><br>
+
+        <label>Sex:</label>
+        <select id="sex">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select><br><br>
+
+        <h2>Chief Complaint</h2>
+        <label>What is the chief complaint?</label>
+        <input type="text" id="chiefComplaint" placeholder="Enter chief complaint"><br><br>
+
+        <h2>History of Present Illness (HOPI)</h2>
+
+        <h3>Onset</h3>
+        <label>When did the symptom(s) start?</label>
+        <input type="text" id="onsetTime" placeholder="e.g., 2 days ago"><br><br>
+
+        <label>Was it sudden or gradual?</label>
+        <input type="text" id="onsetType" placeholder="e.g., Sudden"><br><br>
+
+        <label>What were you doing when it started?</label>
+        <input type="text" id="onsetActivity" placeholder="e.g., After eating"><br><br>
+
+        <h3>Location (for Pain)</h3>
+        <label>Where exactly is the symptom located?</label>
+        <input type="text" id="location" placeholder="e.g., Lower abdomen"><br><br>
+
+        <h3>Duration</h3>
+        <label>How long does the symptom last?</label>
+        <input type="text" id="duration" placeholder="e.g., 15 minutes"><br><br>
+
+        <label>Is the symptom constant or intermittent?</label>
+        <select id="symptomType">
+            <option value="constant">Constant</option>
+            <option value="intermittent">Intermittent</option>
+        </select><br><br>
+
+        <label>If intermittent, how often do you experience it?</label>
+        <input type="text" id="frequency" placeholder="e.g., Twice a day"><br><br>
+
+        <h3>Characteristics/Quality (for Pain)</h3>
+        <label>Can you describe the symptom? Is it sharp, dull, throbbing, burning, etc.?</label>
+        <input type="text" id="quality" placeholder="e.g., Sharp"><br><br>
+
+        <label>On a scale of 1 to 10, how severe is it?</label>
+        <input type="text" id="severity" placeholder="e.g., 7"><br><br>
+
+        <h3>Aggravating Factors</h3>
+        <label>What makes the symptom worse?</label>
+        <input type="text" id="aggravatingFactors" placeholder="e.g., Movement"><br><br>
+
+        <h3>Relieving Factors</h3>
+        <label>What makes the symptom better?</label>
+        <input type="text" id="relievingFactors" placeholder="e.g., Rest"><br><br>
+
+        <h3>Timing</h3>
+        <label>Is there a particular time of day when the symptoms are worse?</label>
+        <input type="text" id="timing" placeholder="e.g., Evening"><br><br>
+
+        <h3>Associated Symptoms</h3>
+        <label>Have you noticed any other symptoms with it? For example, fever, nausea, sweating, etc.</label>
+        <input type="text" id="associatedSymptoms" placeholder="e.g., Nausea"><br><br>
+
+        <h3>Other Associated Symptoms</h3>
+        <label>Name of the symptom:</label>
+        <input type="text" id="otherSymptomName" placeholder="e.g., Fatigue"><br><br>
+
+        <label>Detail of the symptom:</label>
+        <input type="text" id="otherSymptomDetail" placeholder="e.g., Persistent tiredness"><br><br>
+
+        <button type="button" onclick="generateHOPI()">Generate HOPI</button>
+    </form>
+
+    <h2>Generated Output:</h2>
+    <p id="hopiOutput"></p>
+
+    <script>
+        function generateHOPI() {
+            // Retrieve values from the form
+            let patientName = document.getElementById("patientName").value.trim();
+            let age = document.getElementById("age").value.trim();
+            let sex = document.getElementById("sex").value.trim();
+            let chiefComplaint = document.getElementById("chiefComplaint").value.trim();
+            let onsetTime = document.getElementById("onsetTime").value.trim();
+            let onsetType = document.getElementById("onsetType").value.trim();
+            let onsetActivity = document.getElementById("onsetActivity").value.trim();
+            let location = document.getElementById("location").value.trim();
+            let duration = document.getElementById("duration").value.trim();
+            let symptomType = document.getElementById("symptomType").value.trim();
+            let frequency = document.getElementById("frequency").value.trim();
+            let quality = document.getElementById("quality").value.trim();
+            let severity = document.getElementById("severity").value.trim();
+            let aggravatingFactors = document.getElementById("aggravatingFactors").value.trim();
+            let relievingFactors = document.getElementById("relievingFactors").value.trim();
+            let timing = document.getElementById("timing").value.trim();
+            let associatedSymptoms = document.getElementById("associatedSymptoms").value.trim();
+            let otherSymptomName = document.getElementById("otherSymptomName").value.trim();
+            let otherSymptomDetail = document.getElementById("otherSymptomDetail").value.trim();
+
+            // Determine frequency and symptom type text
+            let frequencyText = symptomType === "intermittent" ? `, occurring ${frequency}` : '';
+
+            // Construct HOPI paragraph
+            let hopi = `Chief Complaint: Mr/Ms/Mrs ${patientName} is a ${age}-year-old patient presenting with ${chiefComplaint}, associated with ${associatedSymptoms}. 
+
+                        History of Present Illness (HOPI): The patient reports that the ${chiefComplaint} began ${onsetTime}. The onset was ${onsetType}, occurring while the patient was ${onsetActivity}. 
+                        The symptom is located in ${location}, and it has been ${symptomType} for ${duration}${frequencyText}. The patient describes the symptom as ${quality}, with a severity of ${severity} on a scale from 1 to 10. 
+                        The symptom is aggravated by ${aggravatingFactors} and relieved by ${relievingFactors}. The symptom is most severe ${timing}. 
+                        Additionally, the patient reports other associated symptoms, including ${otherSymptomName} (${otherSymptomDetail}).`;
+
+            // Display the generated HOPI
+            document.getElementById("hopiOutput").innerText = hopi;
+        }
+    </script>
+</body>
+</html>
